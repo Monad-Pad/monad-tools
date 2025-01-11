@@ -1,0 +1,212 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+	.text-balance {
+		text-wrap: balance;
+	}
+}
+
+@layer base {
+	:root {
+		--background: 0 0% 98%;
+		--foreground: 0 0% 18%;
+		--card: 0 0% 99%;
+		--card-foreground: 240 10% 3.9%;
+		--popover: 0 0% 100%;
+		--popover-foreground: 240 10% 3.9%;
+		--primary: 291 100% 67%;
+		--primary-foreground: 45 29% 97%;
+		--primary-border: 291 100% 71%;
+		--secondary: 240 4.8% 95.9%;
+		--secondary-foreground: 240 5.9% 10%;
+		--muted: 0 0% 95%;
+		--muted-foreground: 0 0% 32%;
+		--accent: 0 0% 95%;
+		--accent-foreground: 0 0% 10%;
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 0 0% 98%;
+		--border: 0 0% 90%;
+		--input: 0 0% 90%;
+		--ring: 291 100% 67%;
+		--radius: 0.625rem;
+		--chart-1: 12 76% 61%;
+		--chart-2: 173 58% 39%;
+		--chart-3: 197 37% 24%;
+		--chart-4: 43 74% 66%;
+		--chart-5: 27 87% 67%;
+		--sidebar-background: 0 0% 98%;
+		--sidebar-foreground: 240 5.3% 26.1%;
+		--sidebar-primary: 240 5.9% 10%;
+		--sidebar-primary-foreground: 0 0% 98%;
+		--sidebar-accent: 240 4.8% 95.9%;
+		--sidebar-accent-foreground: 240 5.9% 10%;
+		--sidebar-border: 220 13% 91%;
+		--sidebar-ring: 291 100% 67%;
+	}
+
+	.dark {
+		--background: 0 0% 6%;
+		--foreground: 20 10% 94%;
+		--card: 0 0% 7%;
+		--card-foreground: 0 0% 95%;
+		--popover: 0 0% 9%;
+		--popover-foreground: 0 0% 95%;
+		--primary: 291 100% 67%;
+		--primary-foreground: 291 100% 97%;
+		--primary-border: 291 100% 71%;
+		--secondary: 240 3.7% 15.9%;
+		--secondary-foreground: 0 0% 98%;
+		--muted: 0 0% 12%;
+		--muted-foreground: 240 5% 64.9%;
+		--accent: 0 0% 9%;
+		--accent-foreground: 0 0% 98%;
+		--destructive: 0 72% 60%;
+		--destructive-foreground: 0 85.7% 97.3%;
+		--border: 0 0% 9%;
+		--input: 240 3.7% 15.9%;
+		--ring: 291 100% 67%;
+		--sidebar-background: 0 0% 5%;
+		--sidebar-foreground: 0 0% 90%;
+		--sidebar-primary: 224.3 76.3% 48%;
+		--sidebar-primary-foreground: 0 0% 100%;
+		--sidebar-accent: 0 0% 10%;
+		--sidebar-accent-foreground: 0 0% 90%;
+		--sidebar-border: 0 0% 10%;
+		--sidebar-ring: 291 100% 67%;
+		--chart-1: 220 70% 50%;
+		--chart-2: 160 60% 45%;
+		--chart-3: 30 80% 55%;
+		--chart-4: 280 65% 60%;
+		--chart-5: 340 75% 55%;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+}
+
+body {
+  font-family: "Visby CF", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: "Visby CF";
+  src: url("/fonts/visby-cf/VisbyCF-Thin.woff2") format("woff2"),
+       url("/fonts/visby-cf/VisbyCF-Thin.woff") format("woff"),
+       url("/fonts/visby-cf/VisbyCF-Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Visby CF";
+  src: url("/fonts/visby-cf/VisbyCF-ExtraLight.woff2") format("woff2"),
+       url("/fonts/visby-cf/VisbyCF-ExtraLight.woff") format("woff"),
+       url("/fonts/visby-cf/VisbyCF-ExtraLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Visby CF";
+  src: url("/fonts/visby-cf/VisbyCF-Light.woff2") format("woff2"),
+       url("/fonts/visby-cf/VisbyCF-Light.woff") format("woff"),
+       url("/fonts/visby-cf/VisbyCF-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Visby CF";
+  src: url("/fonts/visby-cf/VisbyCF-Regular.woff2") format("woff2"),
+       url("/fonts/visby-cf/VisbyCF-Regular.woff") format("woff"),
+       url("/fonts/visby-cf/VisbyCF-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Visby CF";
+  src: url("/fonts/visby-cf/VisbyCF-Medium.woff2") format("woff2"),
+       url("/fonts/visby-cf/VisbyCF-Medium.woff") format("woff"),
+       url("/fonts/visby-cf/VisbyCF-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Visby CF";
+  src: url("/fonts/visby-cf/VisbyCF-DemiBold.woff2") format("woff2"),
+       url("/fonts/visby-cf/VisbyCF-DemiBold.woff") format("woff"),
+       url("/fonts/visby-cf/VisbyCF-DemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Visby CF";
+  src: url("/fonts/visby-cf/VisbyCF-Bold.woff2") format("woff2"),
+       url("/fonts/visby-cf/VisbyCF-Bold.woff") format("woff"),
+       url("/fonts/visby-cf/VisbyCF-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Visby CF";
+  src: url("/fonts/visby-cf/VisbyCF-ExtraBold.woff2") format("woff2"),
+       url("/fonts/visby-cf/VisbyCF-ExtraBold.woff") format("woff"),
+       url("/fonts/visby-cf/VisbyCF-ExtraBold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Visby CF";
+  src: url("/fonts/visby-cf/VisbyCF-Heavy.woff2") format("woff2"),
+       url("/fonts/visby-cf/VisbyCF-Heavy.woff") format("woff"),
+       url("/fonts/visby-cf/VisbyCF-Heavy.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+html body[data-scroll-locked] {
+  --removed-body-scroll-bar-size: 0 !important;
+  margin-right: 0 !important;
+} 
+
+.sync-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  will-change: transform;
+}
+
+.sync-scroll > * {
+  scroll-snap-align: start;
+}
+
+.safe-area-pb {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
