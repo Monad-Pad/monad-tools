@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function MintPage() {
-	const { data: nftCollections } = await supabaseServer.from("nft_collections").select("*");
+	const { data: nftCollections } = await supabaseServer.from("nft_collections").select("*").order("starts_at", { ascending: false });
 
 	return (
 		<div className="w-full min-h-screen flex flex-1 flex-col items-center">
