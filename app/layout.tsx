@@ -27,7 +27,7 @@ export default function RootLayout({
 						<div className="flex justify-between items-center gap-2 w-full px-4 py-3">
 							<Link href="/" className="flex items-center gap-1.5">
 								<Wrench size={20} />
-								<p className="text-base font-bold">Monad Tools</p>
+								<p className="text-base font-bold hidden sm:block">Monad Tools</p>
 							</Link>
 							<div className="flex items-center gap-2">
 								<ModeToggleDropdown />

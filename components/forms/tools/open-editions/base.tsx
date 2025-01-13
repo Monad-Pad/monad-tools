@@ -50,6 +50,8 @@ export function FormCreateOpenEditionsBase() {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			price: "0.01",
+			startsAt: new Date(new Date().getTime() + 1000 * 60 * 5), // 5 mins from now
+			endsAt: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 14), // 2 weeks from now
 		},
 	});
 
@@ -90,8 +92,8 @@ export function FormCreateOpenEditionsBase() {
 						symbol: values.symbol,
 						baseURI: uploadResult.data.url,
 						mintPrice: BigInt(Number(values.price) * 10 ** 18),
-						startTime: values.startsAt.getTime(),
-						endTime: values.endsAt.getTime(),
+						startTime: Math.floor(values.startsAt.getTime() / 1000),
+						endTime: Math.floor(values.endsAt.getTime() / 1000),
 						maxSupply: Number(values.supply),
 					});
 

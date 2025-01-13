@@ -32,13 +32,15 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 		const endDate = new Date(collection.ends_at);
         console.log(startDate, endDate, now);
 
-		if (startDate < now && endDate > now) {
+		if (startDate <= now && endDate > now) {
 			setIsMinting(true);
 		} else {
 			setIsMinting(false);
 		}
         if (endDate > now) {
             setIsNotPastEndTime(true);
+        } else {
+            setIsNotPastEndTime(false);
         }
 
         console.log(isMinting, isNotPastEndTime);
@@ -73,16 +75,19 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 							<p className="text-sm text-muted-foreground font-medium">{data.supply}</p>
 						</div>
 					</div>
-					{!isMinting && isNotPastEndTime ? (
+					{!isMinting && isNotPastEndTime && (
 						<div className="w-full lg:w-1/2 mt-4">
-                            <p className="text-sm uppercase text-muted-foreground font-semibold mb-1">{isMinting ? "Minting ends in" : "Minting starts in"}</p>
+							<p className="text-sm uppercase text-muted-foreground font-semibold mb-1">
+								{isMinting ? "Minting ends in" : "Minting starts in"}
+							</p>
 							<Countdown endsAt={isMinting ? collection.ends_at : collection.starts_at} size="full" />
 						</div>
-					): (
-                        <div className="w-full mt-4">
-                            <p className="text-sm uppercase text-muted-foreground font-semibold mb-1">Minting ended</p>
-                        </div>
-                    )}
+					)}
+					{!isNotPastEndTime && (
+						<div className="w-full mt-4">
+							<p className="text-sm uppercase text-muted-foreground font-semibold mb-1">Minting ended</p>
+						</div>
+					)}
 				</div>
 			</div>
 			<div className="flex flex-col items-center justify-center">

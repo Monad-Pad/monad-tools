@@ -18,6 +18,8 @@ export function MintButton({ collectionAddress, mintedTokens, data, isMinting }:
     useEffect(() => {
         if (!isMinting) {
             setIsDisabled(true);
+        } else {
+            setIsDisabled(false);
         }
     }, [isMinting]);
 
