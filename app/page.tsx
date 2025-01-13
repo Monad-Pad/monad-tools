@@ -1,8 +1,14 @@
 import { buttonVariants } from "@/components/ui/button";
 import { LinkCard } from "@/components/ui/link-card";
 import { tools } from "@/lib/tools";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+	title: "Monad Tools | Tools to explore & engage with Monad Devnet",
+	description: "Tools to explore & engage with Monad Devnet made by Monad Pad",
+}
 
 export default function Home() {
 	return (
