@@ -31,7 +31,7 @@ export default async function MintPage() {
 								<div key={c.id}>
 									<div className="w-full aspect-square flex items-center justify-center">
 										<Image
-											src={"/images/sapphire.jpg"}
+											src={convertIpfsUrl(c.data.image)}
 											alt={c.data.name}
 											width={300}
 											height={300}

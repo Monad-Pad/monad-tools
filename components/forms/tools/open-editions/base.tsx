@@ -135,7 +135,6 @@ export function FormCreateOpenEditionsBase() {
 			);
 
 			const createOpenEdition = await createOpenEditionPromise.unwrap();
-			console.log(createOpenEdition);
 			setSlug(createOpenEdition.data.slug);
 
 		} finally {

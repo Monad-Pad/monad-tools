@@ -6,7 +6,7 @@ import { config } from "@/lib/clients/wagmi";
 import { toast } from "sonner";
 import { openEditionFactoryAbi } from "@/lib/abis/open-edition-factory";
 import { OPEN_EDITION_FACTORY_CONTRACT_ADDRESS } from "@/lib/constants";
-import { decodeEventLog } from "viem";
+import { decodeEventLog, parseEther } from "viem";
 import { openEditionAbi } from "@/lib/abis/open-edition";
 
 export default function useOpenEditions() {
@@ -68,20 +68,24 @@ export default function useOpenEditions() {
 		return Number(mintedTokens);
 	}
 
-	async function mintOpenEdition(collectionAddress: `0x${string}`, amount: number) {
-		try {
-			const result = await writeContract(config, {
-				abi: openEditionAbi,
-				address: collectionAddress,
-				functionName: "mint",
-				args: [amount],
-			});
-
-			return result;
-		} catch (error) {
-			console.error(error);
-			toast.error("Failed to mint open edition");
-		}
+	async function mintOpenEdition(collectionAddress: `0x${string}`, amount: number, mintPrice: number) {
+		return toast.promise(
+			async () => {
+				const result = await writeContract(config, {
+					abi: openEditionAbi,
+					address: collectionAddress,
+					functionName: "mint",
+					args: [amount],
+					value: parseEther(String(Number(mintPrice) * amount))
+				});
+				return result;
+			},
+			{
+				loading: 'Minting NFTs...',
+				success: 'Successfully minted NFTs!',
+				error: 'Failed to mint NFTs'
+			}
+		);
 	}
 
 	return { createOpenEdition, getMintedTokens, mintOpenEdition };

@@ -24,6 +24,6 @@ export function MintButton({ collectionAddress, mintedTokens, data, isMinting }:
     }, [isMinting]);
 
     return (
-        <Button onClick={() => mintOpenEdition(collectionAddress, 1)} disabled={isDisabled}>Mint 1 '{data.name}' for {data.price} DMON</Button>
+        <Button onClick={() => mintOpenEdition(collectionAddress, 1, data.price)} disabled={isDisabled}>Mint 1 '{data.name}' for {data.price} DMON</Button>
     )
 }

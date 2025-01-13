@@ -7,7 +7,6 @@ const AccountContext = createContext<ReturnType<typeof useAccount> | null>(null)
 
 export function AccountProvider({ children }: { children: ReactNode }) {
 	const accountInfo = useAccount();
-	console.log(accountInfo);
 	const memoizedAccountInfo = useMemo(() => accountInfo, [accountInfo]);
 	return <AccountContext.Provider value={memoizedAccountInfo}>{children}</AccountContext.Provider>;
 }

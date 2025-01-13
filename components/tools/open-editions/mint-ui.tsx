@@ -30,7 +30,6 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 		const now = new Date();
 		const startDate = new Date(collection.starts_at);
 		const endDate = new Date(collection.ends_at);
-        console.log(startDate, endDate, now);
 
 		if (startDate <= now && endDate > now) {
 			setIsMinting(true);
@@ -43,7 +42,6 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
             setIsNotPastEndTime(false);
         }
 
-        console.log(isMinting, isNotPastEndTime);
 	}, [collection.starts_at, collection.ends_at]);
 
 	return (
