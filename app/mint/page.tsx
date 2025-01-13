@@ -25,10 +25,15 @@ export default async function MintPage() {
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
 					{nftCollections && nftCollections.length > 0 ? (
 						nftCollections.map((c) => {
-							const isMinting = c.data.startTime <= Math.floor(Date.now() / 1000) && c.data.endTime > Math.floor(Date.now() / 1000);
-							const isEnded = c.data.endTime < Math.floor(Date.now() / 1000);
+							const now = new Date();
+							const startDate = new Date(c.starts_at);
+							const endDate = new Date(c.ends_at);
+							
+							const isMinting = startDate <= now && endDate > now;
+							const isNotPastEndTime = endDate > now;
+
 							return (
-								<div key={c.id}>
+								<Link href={`/mint/${c.slug}`} key={c.id} className="hover:scale-105 transition-all duration-300">
 									<div className="w-full aspect-square flex items-center justify-center">
 										<Image
 											src={convertIpfsUrl(c.data.image)}
@@ -43,8 +48,8 @@ export default async function MintPage() {
 										<p className="text-sm font-medium text-muted-foreground line-clamp-3">{c.data.description}</p>
 										<div className="flex flex-wrap gap-1.5 justify-between">
 											<p className="text-sm font-semibold text-foreground mt-1.5">Supply: {c.data.supply}</p>
-											<Badge variant={isMinting ? "default" : isEnded ? "destructive" : "outline"}>
-												{isMinting ? "Minting" : isEnded ? "Ended" : "Upcoming"}
+											<Badge variant={isMinting ? "default" : !isNotPastEndTime ? "destructive" : "outline"}>
+												{isMinting ? "Minting" : !isNotPastEndTime ? "Ended" : "Upcoming"}
 											</Badge>
 										</div>
 										<Separator className="my-2" />
@@ -61,11 +66,11 @@ export default async function MintPage() {
 											</p>
 										</div>
 									</div>
-								</div>
+								</Link>
 							);
 						})
 					) : (
-						<p>No collections found</p>
+						<p className="font-medium text-muted-foreground">No collections found</p>
 					)}
 				</div>
 			</div>
