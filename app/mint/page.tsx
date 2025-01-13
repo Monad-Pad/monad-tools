@@ -46,9 +46,9 @@ export default async function MintPage() {
 									<div className="flex flex-col mt-3">
 										<h2 className="text-lg font-bold text-foreground">{c.data.name}</h2>
 										<p className="text-sm font-medium text-muted-foreground line-clamp-3">{c.data.description}</p>
-										<div className="flex flex-wrap gap-1.5 justify-between">
+										<div className="flex flex-wrap gap-1.5 items-center justify-between">
 											<p className="text-sm font-semibold text-foreground mt-1.5">Supply: {c.data.supply}</p>
-											<Badge variant={isMinting ? "default" : !isNotPastEndTime ? "destructive" : "outline"}>
+											<Badge size="sm" variant={isMinting ? "default" : !isNotPastEndTime ? "destructive" : "outline"}>
 												{isMinting ? "Minting" : !isNotPastEndTime ? "Ended" : "Upcoming"}
 											</Badge>
 										</div>

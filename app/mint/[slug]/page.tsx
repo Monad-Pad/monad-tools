@@ -51,7 +51,7 @@ export default async function MintPage({ params }: { params: { slug: string } })
 
     return (
         <div className="w-full min-h-screen flex flex-1 flex-col items-center justify-center">
-			<div className="max-w-screen-xl w-full px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-2 gap-16">
+			<div className="max-w-screen-lg w-full px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-2 gap-16">
                 <MintUI collectionAddress={nftCollection.contract_address} data={data} collection={nftCollection} />
             </div>
         </div>
