@@ -5,6 +5,7 @@ interface Tool {
     description: string;
     href: string;
     icon: React.ReactNode;
+    disabled?: boolean;
 }
 
 export const tools: Tool[] = [
@@ -18,12 +19,21 @@ export const tools: Tool[] = [
         name: "NFT Minter",
         description: "Create an NFT mint page for your NFT collection",
         href: "/tools/nft-minter",
-        icon: <ImagePlus />
+        icon: <ImagePlus />,
+        disabled: true
     },
     {
         name: "Multisender",
         description: "Send tokens or DMON to multiple addresses at once",
         href: "/tools/multisender",
-        icon: <Send />
+        icon: <Send />,
+        disabled: true
+    },
+    {
+        name: "Token Creator",
+        description: "Create a fungible token",
+        href: "/tools/token-creator",
+        icon: <Send />,
+        disabled: true
     },
 ]

@@ -11,7 +11,7 @@ export default function Home() {
 			</div>
 			<div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
 				{tools.map((tool) => (
-					<LinkCard key={tool.name} title={tool.name} description={tool.description} href={tool.href} icon={tool.icon} />
+					<LinkCard key={tool.name} title={tool.name} description={tool.description} href={tool.href} icon={tool.icon} disabled={tool.disabled} />
 				))}
 			</div>
 		</div>

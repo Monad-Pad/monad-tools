@@ -26,11 +26,21 @@ export interface LinkCardProps
   title: string
   description: string
   href: string
+  disabled?: boolean
   showArrow?: boolean
 }
 
 const LinkCard = React.forwardRef<HTMLAnchorElement, LinkCardProps>(
-  ({ className, variant, icon, title, description, href, showArrow = true, ...props }, ref) => {
+  ({ className, variant, icon, title, description, href, showArrow = true, disabled = false, ...props }, ref) => {
+    if (disabled) {
+      return (
+        <div className={cn(linkCardVariants({ variant, className }), "opacity-50 cursor-not-allowed")}>
+          {icon && <div className="text-foreground mb-3">{icon}</div>}
+          <h3 className="text-lg font-bold text-foreground">{title}</h3>
+          <p className="text-base md:text-sm font-medium text-muted-foreground">{description}</p>
+        </div>
+      )
+    }
     return (
       <Link
         className={cn(linkCardVariants({ variant, className }))}

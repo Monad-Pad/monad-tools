@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Textarea, TextareaProps } from "@/components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 
-interface TextareaWithCharCountProps extends TextareaProps {
+interface TextareaWithCharCountProps extends React.ComponentProps<typeof Textarea> {
 	maxLength: number;
 	minLength: number;
 }

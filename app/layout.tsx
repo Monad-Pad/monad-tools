@@ -6,6 +6,8 @@ import { ModeToggleDropdown } from "@/components/theme-switcher";
 import Providers from "@/components/providers";
 import RainbowKitConnectButton from "@/components/ui/connect-button";
 import { Wrench } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
+import Link from "next/link";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -22,18 +24,19 @@ export default function RootLayout({
 			<body className={`antialiased`}>
 				<Providers>
 					<div>
-						<div className="flex justify-between items-center gap-2 w-full fixed top-0 right-0 px-4 py-3">
-							<div className="flex items-center gap-1.5">
+						<div className="flex justify-between items-center gap-2 w-full px-4 py-3">
+							<Link href="/" className="flex items-center gap-1.5">
 								<Wrench size={20} />
 								<p className="text-base font-bold">Monad Tools</p>
-							</div>
+							</Link>
 							<div className="flex items-center gap-2">
 								<ModeToggleDropdown />
 								<RainbowKitConnectButton />
 							</div>
 						</div>
 					</div>
-					{children}
+					<div className="lg:-mt-[60px]">{children}</div>
+					<Toaster />
 				</Providers>
 			</body>
 		</html>
