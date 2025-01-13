@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Input, InputProps } from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
 
 interface WithCharCountProps {
 	maxLength: number;
 	minLength: number;
 }
 
-type InputWithCharCountProps = Omit<InputProps, 'maxLength'> & WithCharCountProps;
+type InputWithCharCountProps = Omit<React.ComponentProps<typeof Input>, 'maxLength'> & WithCharCountProps;
 
 export function InputWithCharCount({ maxLength, minLength, className, onChange, ...props }: InputWithCharCountProps) {
 	const [charCount, setCharCount] = useState(0);
