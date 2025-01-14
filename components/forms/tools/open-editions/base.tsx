@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useAccount } from "wagmi";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -44,6 +45,7 @@ const formSchema = z.object({
 
 export function FormCreateOpenEditionsBase() {
 	const router = useRouter();
+	const { address } = useAccount();
 
 	const [isCreating, setIsCreating] = useState(false);
 	const [slug, setSlug] = useState<string | null>(null);
@@ -87,12 +89,44 @@ export function FormCreateOpenEditionsBase() {
 
 			const uploadResult = await uploadResponse.unwrap();
 
+			// Upload metadata to IPFS
+			const metadataResponse = toast.promise(
+				async () => {
+					const response = await fetch("/api/upload-metadata", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							name: values.name,
+							description: values.description,
+							image: uploadResult.data.url,
+							creator: address
+						}),
+					});
+
+					if (!response.ok) {
+						const error = await response.json();
+						throw new Error(error.error);
+					}
+
+					return await response.json();
+				},
+				{
+					loading: 'Uploading metadata to IPFS...',
+					success: 'Metadata uploaded successfully!',
+					error: (err) => `Upload Error: ${err.message || 'Failed to upload metadata'}`
+				}
+			);
+
+			const metadataResult = await metadataResponse.unwrap();
+
 			const createContractPromise = toast.promise(
 				async () => {
 					const result = await useOpenEditions().createOpenEdition({
 						name: values.name,
 						symbol: values.symbol,
-						baseURI: uploadResult.data.url,
+						baseURI: metadataResult.data.url,
 						mintPrice: BigInt(Number(values.price) * 10 ** 18),
 						startTime: Math.floor(values.startsAt.getTime() / 1000),
 						endTime: Math.floor(values.endsAt.getTime() / 1000),
@@ -120,7 +154,11 @@ export function FormCreateOpenEditionsBase() {
 					const response = await fetch("/api/tools/open-editions", {
 						method: "POST",
 						body: JSON.stringify({
-							data: { ...values, image: convertIpfsUrl(uploadResult.data.url) },
+							data: { 
+								...values, 
+								image: convertIpfsUrl(uploadResult.data.url),
+								metadata: convertIpfsUrl(metadataResult.data.url)
+							},
 							contractAddress: contractAddress,
 						}),
 					});
