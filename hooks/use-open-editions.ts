@@ -18,6 +18,8 @@ export default function useOpenEditions() {
 		startTime,
 		endTime,
 		maxSupply,
+		maxPerTx,
+		maxPerWallet,
 	}: {
 		name: string;
 		symbol: string;
@@ -26,13 +28,15 @@ export default function useOpenEditions() {
 		startTime: number;
 		endTime: number;
 		maxSupply: number;
+		maxPerTx: number;
+		maxPerWallet: number;
 	}) {
 		try {
 			const result = await writeContract(config, {
 			  abi: openEditionFactoryAbi,
 			  address: OPEN_EDITION_FACTORY_CONTRACT_ADDRESS,
 			  functionName: "createOpenEdition",
-			  args: [name, symbol, baseURI, mintPrice, startTime, endTime, maxSupply],
+			  args: [name, symbol, baseURI, mintPrice, startTime, endTime, maxSupply, maxPerTx, maxPerWallet],
 			});
 		  
 			// Wait for transaction to be mined

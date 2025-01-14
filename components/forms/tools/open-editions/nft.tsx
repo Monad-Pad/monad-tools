@@ -215,6 +215,36 @@ export function FormCreateOpenEditions({ form }: OpenEditionsFormProps) {
 			<DateTimePicker name="endsAt" control={form.control} label="Mint closes" />
 			<FormField
 				control={form.control}
+				name="maxPerTx"
+				render={({ field }) => (
+					<FormItem>
+						<FormLabel>
+							Max per transaction <RequiredAsterix />
+						</FormLabel>
+						<FormControl>
+							<TokenAmountInput name="maxPerTx" placeholder="Enter the maximum number of NFTs that can be minted in a single transaction, e.g. 5" control={form.control} />
+						</FormControl>
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
+			<FormField
+				control={form.control}
+				name="maxPerWallet"
+				render={({ field }) => (
+					<FormItem>
+						<FormLabel>
+							Max per wallet <RequiredAsterix />
+						</FormLabel>
+						<FormControl>
+							<TokenAmountInput name="maxPerWallet" placeholder="Enter the maximum number of NFTs that can be minted in a single wallet, e.g. 20"  control={form.control} />
+						</FormControl>
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
+			<FormField
+				control={form.control}
 				name="price"
 				render={({ field }) => (
 					<FormItem>

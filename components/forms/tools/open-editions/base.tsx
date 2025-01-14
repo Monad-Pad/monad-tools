@@ -37,6 +37,8 @@ const formSchema = z.object({
 	description: z.string(),
 	startsAt: z.date(),
 	endsAt: z.date(),
+	maxPerTx: z.string(),
+	maxPerWallet: z.string(),
 	price: z.string()
 });
 
@@ -95,6 +97,8 @@ export function FormCreateOpenEditionsBase() {
 						startTime: Math.floor(values.startsAt.getTime() / 1000),
 						endTime: Math.floor(values.endsAt.getTime() / 1000),
 						maxSupply: Number(values.supply),
+						maxPerTx: Number(values.maxPerTx),
+						maxPerWallet: Number(values.maxPerWallet),
 					});
 
 					if (!result) {
