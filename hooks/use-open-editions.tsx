@@ -73,20 +73,47 @@ export default function useOpenEditions() {
 	}
 
 	async function mintOpenEdition(collectionAddress: `0x${string}`, amount: number, mintPrice: number) {
+		let signature: `0x${string}` | undefined;
 		return toast.promise(
 			async () => {
-				const result = await writeContract(config, {
-					abi: openEditionAbi,
-					address: collectionAddress,
-					functionName: "mint",
-					args: [amount],
-					value: parseEther(String(Number(mintPrice) * amount))
-				});
-				return result;
+				try {
+					const result = await writeContract(config, {
+						abi: openEditionAbi,
+						address: collectionAddress,
+						functionName: "mint",
+						args: [amount],
+						value: parseEther(String(Number(mintPrice) * amount))
+					});
+
+					console.log(result);
+					
+					if (!result) {
+						throw new Error("Transaction failed - no signature returned");
+					}
+					
+					signature = result;
+					
+					return result;
+				} catch (error) {
+					console.error("Mint error:", error);
+					throw error; // Re-throw to trigger toast error
+				}
 			},
 			{
-				loading: 'Minting NFTs...',
-				success: 'Successfully minted NFTs!',
+				loading: `Minting ${amount} NFTs...`,
+				success: () => (
+					<div className="flex items-center gap-1.5">
+						Successfully minted {amount} NFTs!
+						<a 
+							href={`https://explorer.monad-devnet.devnet101.com/tx/${signature}`}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-primary underline"
+						>
+							View on explorer
+						</a>
+					</div>
+				),
 				error: 'Failed to mint NFTs'
 			}
 		);

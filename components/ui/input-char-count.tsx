@@ -20,7 +20,7 @@ export function InputWithCharCount({ maxLength, minLength, className, onChange, 
 
 	return (
 		<div className="relative">
-			<Input className={`pr-16 ${className}`} maxLength={maxLength} minLength={minLength} onChange={handleChange} {...props} />
+			<Input autoComplete="off" className={`pr-16 ${className}`} maxLength={maxLength} minLength={minLength} onChange={handleChange} {...props} />
 			<div className="absolute top-1/2 right-2 -translate-y-1/2 text-xs text-muted-foreground">
 				{charCount}/{maxLength}
 			</div>
