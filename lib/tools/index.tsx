@@ -1,4 +1,4 @@
-import { ImagePlus, PackageOpen, PlusCircle, Send } from "lucide-react";
+import { Currency, ImagePlus, LockIcon, LockKeyhole, PackageOpen, PlusCircle, Send } from "lucide-react";
 
 interface Tool {
     name: string;
@@ -33,7 +33,21 @@ export const tools: Tool[] = [
         name: "Token Creator",
         description: "Create a fungible token",
         href: "/tools/token-creator",
-        icon: <Send />,
+        icon: <Currency />,
+        disabled: true
+    },
+    {
+        name: "Token Locker",
+        description: "Lock tokens and set vesting schedules",
+        href: "/tools/token-locker",
+        icon: <LockKeyhole />,
+        disabled: true
+    },
+    {
+        name: "LP Locker",
+        description: "Lock liquidity pool tokens",
+        href: "/tools/lp-locker",
+        icon: <LockIcon />,
         disabled: true
     },
 ]
