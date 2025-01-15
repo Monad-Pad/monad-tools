@@ -5,7 +5,7 @@ import useOpenEditions from "@/hooks/use-open-editions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export function MintButton({ collectionAddress, mintedTokens, data, isMinting }: { collectionAddress: `0x${string}`, mintedTokens: number, data: any, isMinting: boolean }) {
+export function MintButton({ setJustMinted, collectionAddress, mintedTokens, data, isMinting }: { setJustMinted: (value: boolean) => void, collectionAddress: `0x${string}`, mintedTokens: number, data: any, isMinting: boolean }) {
     const { mintOpenEdition } = useOpenEditions();
     const [isDisabled, setIsDisabled] = useState(false);
 
@@ -23,7 +23,14 @@ export function MintButton({ collectionAddress, mintedTokens, data, isMinting }:
         }
     }, [isMinting]);
 
+    const handleMint = async () => {
+        const result = (await mintOpenEdition(collectionAddress, 1, data.price)).unwrap();
+        if (await result) {
+            setJustMinted(true);
+        }
+    }
+
     return (
-        <Button onClick={() => mintOpenEdition(collectionAddress, 1, data.price)} disabled={isDisabled}>Mint 1 '{data.name}' for {data.price} DMON</Button>
+        <Button onClick={handleMint} disabled={isDisabled}>Mint 1 '{data.name}' for {data.price} DMON</Button>
     )
 }

@@ -12,12 +12,18 @@ import { Countdown } from "@/components/ui/countdown";
 import { convertIpfsUrl } from "@/lib/helpers/convert-ipfs";
 import Image from "next/image";
 import { ArrowLeftIcon } from "lucide-react";
+import Confetti from 'react-confetti';
 
 export function MintUI({ collectionAddress, data, collection }: { collectionAddress: `0x${string}`; data: any; collection: any }) {
 	const { getMintedTokens } = useOpenEditions();
 	const [mintedTokens, setMintedTokens] = useState(0);
 	const [isMinting, setIsMinting] = useState(false);
 	const [isNotPastEndTime, setIsNotPastEndTime] = useState(false);
+	const [justMinted, setJustMinted] = useState(false);
+	const [windowSize, setWindowSize] = useState({
+		width: typeof window !== 'undefined' ? window.innerWidth : 0,
+		height: typeof window !== 'undefined' ? window.innerHeight : 0
+	});
 
 	useEffect(() => {
 		async function fetchMintedTokens() {
@@ -43,6 +49,27 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 			setIsNotPastEndTime(false);
 		}
 	}, [collection.starts_at, collection.ends_at]);
+
+	useEffect(() => {
+		if (justMinted) {
+			setMintedTokens(mintedTokens + 1);
+			setTimeout(() => {
+				setJustMinted(false);
+			}, 2500);
+		}
+	}, [justMinted]);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setWindowSize({
+				width: window.innerWidth,
+				height: window.innerHeight
+			});
+		};
+
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
 
 	return (
 		<>
@@ -77,7 +104,7 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 						<p>Max per wallet: <span className="text-primary font-semibold">{data.maxPerWallet}</span></p>
 						<p>Max per transaction: <span className="text-primary font-semibold">{data.maxPerTx}</span></p>
 					</div>
-					<MintButton collectionAddress={collectionAddress} mintedTokens={mintedTokens} data={data} isMinting={isMinting} />
+					<MintButton setJustMinted={setJustMinted} collectionAddress={collectionAddress} mintedTokens={mintedTokens} data={data} isMinting={isMinting} />
 					<div className="w-full">
 						<Progress value={(mintedTokens / data.supply) * 100} max={100} />
 						<div className="flex justify-between">
@@ -108,6 +135,14 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 					className="w-full aspect-square h-full object-cover rounded-2xl"
 				/>
 			</div>
+			{justMinted && (
+				<Confetti
+					width={windowSize.width}
+					height={windowSize.height}
+					recycle={false}
+					numberOfPieces={200}
+				/>
+			)}
 		</>
 	);
 }
