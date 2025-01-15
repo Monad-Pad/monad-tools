@@ -72,7 +72,17 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 	}, []);
 
 	return (
-		<>
+<>
+			{justMinted && (
+				<div className="fixed inset-0 pointer-events-none z-50">
+					<Confetti
+						width={windowSize.width}
+						height={windowSize.height}
+						recycle={false}
+						numberOfPieces={200}
+					/>
+				</div>
+			)}
 			<div className="flex flex-col justify-center gap-1">
 				<Link href="/mint" className="text-sm font-medium mb-6 text-primary underline flex items-center gap-1">
 					<ArrowLeftIcon size={16} /> Back to overview
@@ -135,14 +145,6 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 					className="w-full aspect-square h-full object-cover rounded-2xl"
 				/>
 			</div>
-			{justMinted && (
-				<Confetti
-					width={windowSize.width}
-					height={windowSize.height}
-					recycle={false}
-					numberOfPieces={200}
-				/>
-			)}
 		</>
 	);
 }
