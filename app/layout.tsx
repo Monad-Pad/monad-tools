@@ -8,6 +8,7 @@ import RainbowKitConnectButton from "@/components/ui/connect-button";
 import { Wrench } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import Link from "next/link";
+import { MonadPadIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -36,6 +37,12 @@ export default function RootLayout({
 						</div>
 					</div>
 					<div className="lg:-mt-[60px]">{children}</div>
+					<div className="bg-black/25 py-8 px-6">
+						<div className="flex flex-wrap gap-2 mx-auto justify-between items-center">
+							<p className="text-sm text-muted-foreground font-medium flex gap-1">Monad Tools is a community project made by{" "}<Link href="https://monadpad.xyz" target="_blank" className="text-primary underline flex items-center gap-1"><MonadPadIcon className="size-4" />Monad Pad</Link></p>
+							<p className="text-sm text-muted-foreground font-medium">We are not affiliated with Monad</p>
+						</div>
+					</div>
 					<Toaster />
 				</Providers>
 			</body>

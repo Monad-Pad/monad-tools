@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Countdown } from "@/components/ui/countdown";
 import { convertIpfsUrl } from "@/lib/helpers/convert-ipfs";
 import Image from "next/image";
+import { ArrowLeftIcon } from "lucide-react";
 
 export function MintUI({ collectionAddress, data, collection }: { collectionAddress: `0x${string}`; data: any; collection: any }) {
 	const { getMintedTokens } = useOpenEditions();
@@ -46,6 +47,9 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 	return (
 		<>
 			<div className="flex flex-col justify-center gap-1">
+				<Link href="/mint" className="text-sm font-medium mb-6 text-primary underline flex items-center gap-1">
+					<ArrowLeftIcon size={16} /> Back to overview
+				</Link>
 				<h1 className="text-2xl md:text-3xl font-bold">
 					{data.name} ({data.symbol})
 				</h1>
