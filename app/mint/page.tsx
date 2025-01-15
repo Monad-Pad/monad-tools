@@ -4,11 +4,21 @@ import { Separator } from "@/components/ui/separator";
 import { supabaseServer } from "@/lib/clients/supabase";
 import { convertIpfsUrl } from "@/lib/helpers/convert-ipfs";
 import { formatAddress } from "@/lib/helpers/formatters/format-address";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+	title: "Mint NFTs | Monad Tools",
+	description: "Mint NFTs on Monad.tools",
+};
+
 export default async function MintPage() {
 	const { data: nftCollections } = await supabaseServer.from("nft_collections").select("*").order("starts_at", { ascending: false });
+
+	const now = new Date().getTime();
 
 	return (
 		<div className="w-full min-h-screen flex flex-1 flex-col items-center">
@@ -25,9 +35,8 @@ export default async function MintPage() {
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
 					{nftCollections && nftCollections.length > 0 ? (
 						nftCollections.map((c) => {
-							const now = new Date();
-							const startDate = new Date(c.starts_at);
-							const endDate = new Date(c.ends_at);
+							const startDate = new Date(c.starts_at).getTime();
+							const endDate = new Date(c.ends_at).getTime();
 							
 							const isMinting = startDate <= now && endDate > now;
 							const isNotPastEndTime = endDate > now;
