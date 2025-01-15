@@ -63,6 +63,7 @@ export default async function MintPage() {
 												>
 													{formatAddress(c.creator_address)}
 												</Link>
+												.
 											</p>
 										</div>
 									</div>
