@@ -73,6 +73,10 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 					</p>
 				</div>
 				<div className="flex flex-col gap-2 mt-6">
+					<div className="text-sm text-muted-foreground font-medium flex justify-between gap-2 flex-wrap items-center">
+						<p>Max per wallet: <span className="text-primary font-semibold">{data.maxPerWallet}</span></p>
+						<p>Max per transaction: <span className="text-primary font-semibold">{data.maxPerTx}</span></p>
+					</div>
 					<MintButton collectionAddress={collectionAddress} mintedTokens={mintedTokens} data={data} isMinting={isMinting} />
 					<div className="w-full">
 						<Progress value={(mintedTokens / data.supply) * 100} max={100} />
