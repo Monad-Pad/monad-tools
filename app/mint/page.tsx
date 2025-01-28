@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { supabaseServer } from "@/lib/clients/supabase";
+import { EXPLORER_URL } from "@/lib/constants";
 import { convertIpfsUrl } from "@/lib/helpers/convert-ipfs";
 import { formatAddress } from "@/lib/helpers/formatters/format-address";
 import { Metadata } from "next";
@@ -67,7 +68,7 @@ export default async function MintPage() {
 											<p className="text-sm text-muted-foreground font-medium">
 												Created by{" "}
 												<Link
-													href={`https://explorer.monad-devnet.devnet101.com/address/${c.creator_address}`}
+													href={`${EXPLORER_URL}/address/${c.creator_address}`}
 													target="_blank"
 													className="text-primary underline"
 												>

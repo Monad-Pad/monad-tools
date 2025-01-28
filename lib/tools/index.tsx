@@ -16,6 +16,12 @@ export const tools: Tool[] = [
         icon: <PackageOpen />
     },
     {
+        name: "Token Creator",
+        description: "Create a fungible token",
+        href: "/tools/token-creator",
+        icon: <Currency />,
+    },
+    {
         name: "NFT Minter",
         description: "Create an NFT mint page for your NFT collection",
         href: "/tools/nft-minter",
@@ -27,13 +33,6 @@ export const tools: Tool[] = [
         description: "Send tokens or DMON to multiple addresses at once",
         href: "/tools/multisender",
         icon: <Send />,
-        disabled: true
-    },
-    {
-        name: "Token Creator",
-        description: "Create a fungible token",
-        href: "/tools/token-creator",
-        icon: <Currency />,
         disabled: true
     },
     {

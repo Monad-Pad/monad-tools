@@ -21,9 +21,11 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
 	}
 
-    const isNotRatelimited = (await supabaseServer.rpc("check_upload_rate_limit", {
+    const { data, error } = await supabaseServer.rpc("check_upload_rate_limit", {
         wallet_addr: tokenData.sub
-    })).data;
+    });
+    console.log(data, error);
+    const isNotRatelimited = data;
 
     console.log(isNotRatelimited);
 

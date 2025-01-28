@@ -1,5 +1,6 @@
 "use client";
 
+
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ImagePlus } from "lucide-react";
@@ -13,47 +14,46 @@ import { TokenAmountInput } from "@/components/ui/input-token-amount";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { InputWithCharCount } from "@/components/ui/input-char-count";
 import { UseFormReturn } from "react-hook-form";
-import { TextareaWithCharCount } from "@/components/ui/textarea-char-count";
-import { DateTimePicker } from "@/components/ui/date-time-picker";
 
-interface OpenEditionsFormProps {
+interface TokenFormProps {
 	form: UseFormReturn<any>;
 }
 
-export function FormCreateOpenEditions({ form }: OpenEditionsFormProps) {
+export function FormCreateTokenToken({ form }: TokenFormProps) {
 	const [logoPreview, setLogoPreview] = useState<string | ArrayBuffer | null>(null);
 
-	const symbol = form.watch("symbol");
-	const supply = form.watch("supply");
-	const title = form.watch("name");
+	const tokenSymbol = form.watch("tokenSymbol");
+	const tokenSupply = form.watch("tokenSupply");
+	const tokenName = form.watch("tokenName");
+	const tokenDecimals = form.watch("tokenDecimals");
 
-	const onLogoDrop = useCallback(
-		(acceptedFiles: File[]) => {
-			const reader = new FileReader();
-			try {
-				reader.onload = () => setLogoPreview(reader.result);
-				reader.readAsDataURL(acceptedFiles[0]);
-				form.setValue("image", acceptedFiles[0]);
-				form.clearErrors("image");
-			} catch (error) {
-				setLogoPreview(null);
-				form.resetField("image");
-			}
-		},
-		[form]
-	);
+	// const onLogoDrop = useCallback(
+	// 	(acceptedFiles: File[]) => {
+	// 		const reader = new FileReader();
+	// 		try {
+	// 			reader.onload = () => setLogoPreview(reader.result);
+	// 			reader.readAsDataURL(acceptedFiles[0]);
+	// 			form.setValue("tokenImage", acceptedFiles[0]);
+	// 			form.clearErrors("tokenImage");
+	// 		} catch (error) {
+	// 			setLogoPreview(null);
+	// 			form.resetField("tokenImage");
+	// 		}
+	// 	},
+	// 	[form]
+	// );
 
-	const {
-		getRootProps: getLogoRootProps,
-		getInputProps: getLogoInputProps,
-		isDragActive: isLogoDragActive,
-		fileRejections: logoFileRejections,
-	} = useDropzone({
-		onDrop: onLogoDrop,
-		maxFiles: 1,
-		maxSize: 1000000, // 1MB
-		accept: { "image/png": [], "image/jpg": [], "image/jpeg": [], "image/webp": [] },
-	});
+	// const {
+	// 	getRootProps: getLogoRootProps,
+	// 	getInputProps: getLogoInputProps,
+	// 	isDragActive: isLogoDragActive,
+	// 	fileRejections: logoFileRejections,
+	// } = useDropzone({
+	// 	onDrop: onLogoDrop,
+	// 	maxFiles: 1,
+	// 	maxSize: 1000000,
+	// 	accept: { "image/png": [], "image/jpg": [], "image/jpeg": [], "image/webp": [] },
+	// });
 	// const debouncedValidation = useMemo(
 	// 	() =>
 	// 		debounce((field: string, value: string) => {
@@ -75,15 +75,15 @@ export function FormCreateOpenEditions({ form }: OpenEditionsFormProps) {
 	// );
 
 	useEffect(() => {
-		if (supply && Number(supply) < 1) {
-			form.setValue("supply", "1");
-			toast.error("Supply must be at least 1.");
-		} else if (supply && Number(supply) > 1e12) {
+		if (tokenSupply && Number(tokenSupply) < 1) {
+			form.setValue("tokenSupply", "1");
+			toast.error("Token supply must be at least 1.");
+		} else if (tokenSupply && Number(tokenSupply) > 1e12) {
 			const formattedValue = "1,000,000,000,000";
-			form.setValue("supply", formattedValue, { shouldValidate: true });
-			toast.error("Supply must not be more than 1 trillion.");
+			form.setValue("tokenSupply", formattedValue, { shouldValidate: true });
+			toast.error("Token supply must not be more than 1 trillion.");
 		}
-	}, [form, supply]);
+	}, [form, tokenSupply]);
 
 	// useEffect(() => {
 	// 	if (tokenName) {
@@ -97,18 +97,27 @@ export function FormCreateOpenEditions({ form }: OpenEditionsFormProps) {
 	// 	}
 	// }, [tokenSymbol, debouncedValidation]);
 
+	useEffect(() => {
+		if (tokenDecimals && tokenDecimals < 1) {
+			form.setValue("tokenDecimals", tokenDecimals, { shouldValidate: true });
+			toast.error("Token decimals must be at least 1.");
+		} else if (tokenDecimals && tokenDecimals > 18) {
+			form.setValue("tokenDecimals", tokenDecimals, { shouldValidate: true });
+			toast.error("Token decimals must not be more than 18.");
+		}
+	}, [form, tokenDecimals]);
 	return (
 		<>
 			<FormField
 				control={form.control}
-				name="name"
+				name="tokenName"
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>
 							Name <RequiredAsterix />
 						</FormLabel>
 						<FormControl>
-							<InputWithCharCount maxLength={30} minLength={3} placeholder="Enter in your NFT name, e.g. My NFT" {...field} />
+							<InputWithCharCount maxLength={30} minLength={3} placeholder="Enter in your token name, e.g. My Token" {...field} />
 						</FormControl>
 						<FormDescription>Min 3 characters, max 30 characters</FormDescription>
 						<FormMessage />
@@ -117,14 +126,14 @@ export function FormCreateOpenEditions({ form }: OpenEditionsFormProps) {
 			/>
 			<FormField
 				control={form.control}
-				name="symbol"
+				name="tokenSymbol"
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>
 							Symbol <RequiredAsterix />
 						</FormLabel>
 						<FormControl>
-							<InputWithCharCount maxLength={9} minLength={3} placeholder="Enter in your NFT symbol, e.g. MYNFT" {...field} />
+							<InputWithCharCount maxLength={9} minLength={3} placeholder="Enter in your token symbol, e.g. MYT" {...field} />
 						</FormControl>
 						<FormDescription>Min 3 characters, max 9 characters</FormDescription>
 						<FormMessage />
@@ -133,45 +142,34 @@ export function FormCreateOpenEditions({ form }: OpenEditionsFormProps) {
 			/>
 			<FormField
 				control={form.control}
-				name="supply"
+				name="tokenSupply"
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>
 							Supply <RequiredAsterix />
 						</FormLabel>
 						<FormControl>
-							<TokenAmountInput name="supply" placeholder="Enter in your NFT supply, e.g. 1,000" tokenSymbol={symbol} control={form.control} />
+							<TokenAmountInput
+								name="tokenSupply"
+								placeholder="Enter in your token supply, e.g. 100,000,000"
+								tokenSymbol={tokenSymbol}
+								control={form.control}
+							/>
 						</FormControl>
 						{/* <FormDescription>This is your public display name.</FormDescription> */}
 						<FormMessage />
 					</FormItem>
 				)}
 			/>
-			<FormField
+			{/* <FormField
 				control={form.control}
-				name="description"
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>
-							Description <RequiredAsterix />
-						</FormLabel>
-						<FormControl>
-							<TextareaWithCharCount maxLength={1000} minLength={1} placeholder="Enter in your NFT description, e.g. This is my NFT" {...field} />
-						</FormControl>
-						{/* <FormDescription>This is your public display name.</FormDescription> */}
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-			<FormField
-				control={form.control}
-				name="image"
+				name="tokenImage"
 				render={() => (
 					<FormItem className="flex-shrink-0">
 						<FormLabel className={`${logoFileRejections.length !== 0 && "text-destructive"}`}>
 							Image <RequiredAsterix />
 							<span
-								className={form.formState.errors.image || logoFileRejections.length !== 0 ? "text-destructive" : "text-muted-foreground"}
+								className={form.formState.errors.tokenImage || logoFileRejections.length !== 0 ? "text-destructive" : "text-muted-foreground"}
 							></span>
 						</FormLabel>
 						<FormControl>
@@ -183,7 +181,7 @@ export function FormCreateOpenEditions({ form }: OpenEditionsFormProps) {
 									<div className="w-full h-full flex items-center justify-center">
 										<Image
 											src={logoPreview as string}
-											alt="Uploaded NFT image"
+											alt="Uploaded token image"
 											className="size-full object-cover rounded-lg"
 											width={200}
 											height={200}
@@ -205,70 +203,38 @@ export function FormCreateOpenEditions({ form }: OpenEditionsFormProps) {
 								<p className="text-sm text-red-500 font-medium text-left">* Image must be less than 1MB and of type png, jpg, or jpeg</p>
 							)}
 						</FormMessage>
-						<FormDescription>
-							Image must be less than 1MB and of type png, jpg, webp, or jpeg
-						</FormDescription>
 					</FormItem>
 				)}
-			/>
-			<DateTimePicker 
-				name="startsAt" 
-				control={form.control} 
-				label="Mint opens"
-				showSeconds={false}
-			/>
-			<DateTimePicker 
-				name="endsAt" 
-				control={form.control} 
-				label="Mint closes"
-				showSeconds={false}
-			/>
-			<FormField
-				control={form.control}
-				name="maxPerTx"
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>
-							Max per transaction <RequiredAsterix />
-						</FormLabel>
-						<FormControl>
-							<TokenAmountInput name="maxPerTx" placeholder="Enter the maximum number of NFTs that can be minted in a single transaction, e.g. 5" control={form.control} />
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-			<FormField
-				control={form.control}
-				name="maxPerWallet"
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>
-							Max per wallet <RequiredAsterix />
-						</FormLabel>
-						<FormControl>
-							<TokenAmountInput name="maxPerWallet" placeholder="Enter the maximum number of NFTs that can be minted in a single wallet, e.g. 20"  control={form.control} />
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-			<FormField
-				control={form.control}
-				name="price"
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>
-							Price <RequiredAsterix />
-						</FormLabel>
-						<FormControl>
-							<TokenAmountInput name="price" placeholder="Enter the price" tokenSymbol={"DMON"} control={form.control} />
-						</FormControl>
-
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
+			/> */}
+			<Accordion type="multiple" className="w-full">
+				<AccordionItem className="p-0" value="step-1">
+					<AccordionTrigger>
+						<h2 className="text-sm text-muted-foreground font-semibold">Advanced Options</h2>
+					</AccordionTrigger>
+					<AccordionContent>
+						<div className="border-l-2 border-l-input pl-4">
+							<FormField
+								control={form.control}
+								name="tokenDecimals"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>
+											Decimals <RequiredAsterix />
+										</FormLabel>
+										<FormControl>
+											<Input disabled defaultValue={18} placeholder="Enter in your token decimals, e.g. 18" {...field} />
+										</FormControl>
+										<FormDescription>
+											This is the number of decimal places your token will have. <b>(temporarily: fixed at 18)</b>
+										</FormDescription>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						</div>
+					</AccordionContent>
+				</AccordionItem>
+			</Accordion>
 		</>
 	);
 }

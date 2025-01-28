@@ -1,8 +1,8 @@
 import {  getDefaultConfig } from "@rainbow-me/rainbowkit";
-import { monadDevnet } from "./monad-devnet";
+import { monadTestnet } from "./monad";
 
 const chains = [{
-	...monadDevnet,
+	...monadTestnet,
 }];
 
 export const config = getDefaultConfig({

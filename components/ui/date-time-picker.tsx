@@ -16,9 +16,10 @@ interface DateTimePickerProps {
 	name: string;
 	control: Control<any>;
 	label: string;
+	showSeconds?: boolean;
 }
 
-export function DateTimePicker({ name, control, label }: DateTimePickerProps) {
+export function DateTimePicker({ name, control, label, showSeconds = true }: DateTimePickerProps) {
 	const {
 		field: { onChange, value },
 		fieldState: { error },
@@ -44,7 +45,7 @@ export function DateTimePicker({ name, control, label }: DateTimePickerProps) {
 						!value && "text-muted-foreground"
 					)}>
 						<CalendarIcon className="mr-2 h-4 w-4" />
-						{value ? format(value, "PPP HH:mm:ss") : <span className="text-muted-foreground">Pick a date and time</span>}
+						{value ? format(value, `PPP HH:mm${showSeconds ? ':ss' : ''}`) : <span className="text-muted-foreground">Pick a date and time</span>}
 					</PopoverTrigger>
 				</FormControl>
 				<PopoverContent className="w-auto max-w-lg p-0">

@@ -5,7 +5,7 @@ import { writeContract, readContract, waitForTransactionReceipt } from "@wagmi/c
 import { config } from "@/lib/clients/wagmi";
 import { toast } from "sonner";
 import { openEditionFactoryAbi } from "@/lib/abis/open-edition-factory";
-import { OPEN_EDITION_FACTORY_CONTRACT_ADDRESS } from "@/lib/constants";
+import { EXPLORER_URL, OPEN_EDITION_FACTORY_CONTRACT_ADDRESS } from "@/lib/constants";
 import { decodeEventLog, parseEther } from "viem";
 import { openEditionAbi } from "@/lib/abis/open-edition";
 
@@ -105,7 +105,7 @@ export default function useOpenEditions() {
 					<div className="flex items-center gap-1.5">
 						Successfully minted {amount} NFTs!
 						<a 
-							href={`https://explorer.monad-devnet.devnet101.com/tx/${signature}`}
+							href={`${EXPLORER_URL}/tx/${signature}`}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="text-primary underline"

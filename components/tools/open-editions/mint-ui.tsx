@@ -13,6 +13,7 @@ import { convertIpfsUrl } from "@/lib/helpers/convert-ipfs";
 import Image from "next/image";
 import { ArrowLeftIcon } from "lucide-react";
 import Confetti from 'react-confetti';
+import { EXPLORER_URL } from "@/lib/constants";
 
 export function MintUI({ collectionAddress, data, collection }: { collectionAddress: `0x${string}`; data: any; collection: any }) {
 	const { getMintedTokens } = useOpenEditions();
@@ -96,7 +97,7 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 					<p className="text-sm text-muted-foreground font-medium">
 						Created by{" "}
 						<Link
-							href={`https://explorer.monad-devnet.devnet101.com/address/${collection.creator_address}`}
+							href={`${EXPLORER_URL}/address/${collection.creator_address}`}
 							target="_blank"
 							className="text-primary underline"
 						>
@@ -104,7 +105,7 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 						</Link>
 						.{" "}
 						<span className="text-muted-foreground font-medium">Address:</span>{" "}
-						<Link href={`https://explorer.monad-devnet.devnet101.com/address/${collection.contract_address}`} target="_blank" className="text-primary underline">
+						<Link href={`${EXPLORER_URL}/address/${collection.contract_address}`} target="_blank" className="text-primary underline">
 							{formatAddress(collection.contract_address)}
 						</Link>
 					</p>
