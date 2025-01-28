@@ -72,6 +72,21 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 		return () => window.removeEventListener('resize', handleResize);
 	}, []);
 
+	useEffect(() => {
+		const checkTime = () => {
+			const now = new Date();
+			const startDate = new Date(collection.starts_at);
+			
+			if (!isMinting && now >= startDate) {
+				window.location.reload();
+			}
+		};
+
+		const interval = setInterval(checkTime, 1000);
+		
+		return () => clearInterval(interval);
+	}, [isMinting, collection.starts_at]);
+
 	return (
 <>
 			{justMinted && (

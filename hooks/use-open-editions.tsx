@@ -84,8 +84,6 @@ export default function useOpenEditions() {
 						args: [amount],
 						value: parseEther(String(Number(mintPrice) * amount))
 					});
-
-					console.log(result);
 					
 					if (!result) {
 						throw new Error("Transaction failed - no signature returned");

@@ -24,8 +24,8 @@ export async function POST(req: Request) {
         symbol,
         name,
         supply,
-        token_address: tokenAddress,
-        creator_address: user.address
+        token_address: tokenAddress.toLowerCase(),
+        creator_address: user.address.toLowerCase()
     });
 
     if (error) {

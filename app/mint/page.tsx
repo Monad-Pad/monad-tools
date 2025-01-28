@@ -40,7 +40,8 @@ export default async function MintPage() {
 							const startDate = new Date(c.starts_at).getTime();
 							const endDate = new Date(c.ends_at).getTime();
 							
-							const isMinting = startDate <= now && endDate > now;
+							const mintedOut = c.minted_nfts >= c.data.supply;
+							const isMinting = startDate <= now && endDate > now && !mintedOut;
 							const isNotPastEndTime = endDate > now;
 
 							return (
@@ -59,8 +60,8 @@ export default async function MintPage() {
 										<p className="text-sm font-medium text-muted-foreground line-clamp-3">{c.data.description}</p>
 										<div className="flex flex-wrap gap-1.5 items-center justify-between">
 											<p className="text-sm font-semibold text-foreground mt-1.5">Supply: {c.data.supply}</p>
-											<Badge size="sm" variant={isMinting ? "default" : !isNotPastEndTime ? "destructive" : "outline"}>
-												{isMinting ? "Minting" : !isNotPastEndTime ? "Ended" : "Upcoming"}
+											<Badge size="sm" variant={isMinting ? "default" : !isNotPastEndTime ? "destructive" : mintedOut ? "destructive" : "outline"}>
+												{isMinting ? "Minting" : !isNotPastEndTime ? "Ended" : mintedOut ? "Sold out" : "Upcoming"}
 											</Badge>
 										</div>
 										<Separator className="my-2" />

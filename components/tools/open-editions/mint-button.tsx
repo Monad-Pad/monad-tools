@@ -24,9 +24,17 @@ export function MintButton({ setJustMinted, collectionAddress, mintedTokens, dat
     }, [isMinting]);
 
     const handleMint = async () => {
-        const result = (await mintOpenEdition(collectionAddress, 1, data.price)).unwrap();
-        if (await result) {
+        const result = await (await mintOpenEdition(collectionAddress, 1, data.price)).unwrap();
+        if (result) {
             setJustMinted(true);
+
+            // wait a sec and then check if the tx is successful
+            setTimeout(async () => {
+                await fetch("/api/tools/mint", {
+                    method: "POST",
+                    body: JSON.stringify({ signature: result }),
+                });
+            }, 1000);
         }
     }
 

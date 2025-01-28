@@ -24,8 +24,8 @@ export async function POST(req: Request) {
 
     const { error } = await supabaseServer.from("nft_collections").insert({
         data,
-        contract_address: contractAddress,
-        creator_address: user.address,
+        contract_address: contractAddress.toLowerCase(),
+        creator_address: user.address.toLowerCase(),
         starts_at: new Date(data.startsAt),
         ends_at: new Date(data.endsAt),
         slug: slug
