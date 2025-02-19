@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 
 export const metadata = {
 	title: "Create an Open Edition NFT | Monad Tools",
-	description: "Create an Open Edition NFT to be minted on Monad Devnet v2.",
+	description: "Create an Open Edition NFT to be minted on Monad Testnet v2.",
 };
 
 export default function CreateOpenEditionsPage() {
@@ -14,7 +14,7 @@ export default function CreateOpenEditionsPage() {
 				<div className="space-y-1.5">
 					<Badge variant="outline">Open Editions</Badge>
 					<h1 className="text-xl md:text-lg font-bold">Create an Open Edition NFT</h1>
-					<p className="text-base md:text-sm font-medium text-muted-foreground">Create an Open Edition NFT to be minted on Monad Devnet v2.</p>
+					<p className="text-base md:text-sm font-medium text-muted-foreground">Create an Open Edition NFT to be minted on Monad Testnet v2.</p>
 				</div>
 				<p className="text-sm text-muted-foreground font-medium mt-4">PS: You can only upload 1 image every 5 minutes.</p>
 				<Separator className="mt-6 mb-5" />

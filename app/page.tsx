@@ -6,8 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-	title: "Monad Tools | Tools to explore & engage with Monad Devnet",
-	description: "Tools to explore & engage with Monad Devnet made by Monad Pad",
+	title: "Monad Tools | Tools to explore & engage with Monad Testnet",
+	description: "Tools to explore & engage with Monad Testnet made by Monad Pad",
 }
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
 		<div className="flex flex-col items-center justify-center min-h-screen p-8">
 			<div className="flex flex-col items-center justify-center mb-8">
 				<h1 className="text-xl font-bold">Tools ({tools.length})</h1>
-				<p className="text-base font-medium text-muted-foreground">Tools to explore & engage with Monad Devnet</p>
+				<p className="text-base font-medium text-muted-foreground">Tools to explore & engage with Monad Testnet</p>
 				<Link href="/mint" className={buttonVariants({ variant: "default", size: "sm" }) + " mt-4"}>See all NFT collections</Link>
 			</div>
 			<div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
