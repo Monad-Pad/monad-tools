@@ -46,7 +46,7 @@ export default function RootLayout({
 							<p className="text-sm text-muted-foreground font-medium">We are not affiliated with Monad</p>
 						</div>
 					</div>
-					<Toaster />
+					<Toaster expand />
 				</Providers>
 			</body>
 		</html>
