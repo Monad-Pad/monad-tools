@@ -5,7 +5,7 @@ export const monadTestnet = defineChain({
 	name: "Monad Testnet",
 	nativeCurrency: { name: "MON", symbol: "MON", decimals: 18 },
 	rpcUrls: {
-		default: { http: ["https://testnet-rpc.monadpad.xyz/ac8a2601c3e93b4a8186126716c8d858043f08c0"] },
+		default: { http: ["https://monad-testnet.g.alchemy.com/v2/-lZZZdg3VdeAq6Cj4cOEJ3sjeq2YbkL9"] },
 	},
 	blockExplorers: {
 		default: { name: "Explorer", url: "https://testnet.monadexplorer.com" },
