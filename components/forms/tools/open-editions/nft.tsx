@@ -262,7 +262,7 @@ export function FormCreateOpenEditions({ form }: OpenEditionsFormProps) {
 							Price <RequiredAsterix />
 						</FormLabel>
 						<FormControl>
-							<TokenAmountInput name="price" placeholder="Enter the price" tokenSymbol={"DMON"} control={form.control} />
+							<TokenAmountInput name="price" placeholder="Enter the price" tokenSymbol={"MON"} control={form.control} />
 						</FormControl>
 
 						<FormMessage />

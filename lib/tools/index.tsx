@@ -30,7 +30,7 @@ export const tools: Tool[] = [
     },
     {
         name: "Multisender",
-        description: "Send tokens or DMON to multiple addresses at once",
+        description: "Send tokens or MON to multiple addresses at once",
         href: "/tools/multisender",
         icon: <Send />,
         disabled: true

@@ -39,6 +39,6 @@ export function MintButton({ setJustMinted, collectionAddress, mintedTokens, dat
     }
 
     return (
-        <Button onClick={handleMint} disabled={isDisabled}>Mint 1 '{data.name}' for {data.price} DMON</Button>
+        <Button onClick={handleMint} disabled={isDisabled}>Mint 1 '{data.name}' for {data.price} MON</Button>
     )
 }
