@@ -12,7 +12,7 @@ import { Countdown } from "@/components/ui/countdown";
 import { convertIpfsUrl } from "@/lib/helpers/convert-ipfs";
 import Image from "next/image";
 import { ArrowLeftIcon } from "lucide-react";
-import Confetti from 'react-confetti';
+import Confetti from "react-confetti";
 import { EXPLORER_URL } from "@/lib/constants";
 
 export function MintUI({ collectionAddress, data, collection }: { collectionAddress: `0x${string}`; data: any; collection: any }) {
@@ -22,8 +22,8 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 	const [isNotPastEndTime, setIsNotPastEndTime] = useState(false);
 	const [justMinted, setJustMinted] = useState(false);
 	const [windowSize, setWindowSize] = useState({
-		width: typeof window !== 'undefined' ? window.innerWidth : 0,
-		height: typeof window !== 'undefined' ? window.innerHeight : 0
+		width: typeof window !== "undefined" ? window.innerWidth : 0,
+		height: typeof window !== "undefined" ? window.innerHeight : 0,
 	});
 
 	useEffect(() => {
@@ -64,39 +64,35 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 		const handleResize = () => {
 			setWindowSize({
 				width: window.innerWidth,
-				height: window.innerHeight
+				height: window.innerHeight,
 			});
 		};
 
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
 	useEffect(() => {
 		const checkTime = () => {
 			const now = new Date();
 			const startDate = new Date(collection.starts_at);
-			
-			if (!isMinting && now >= startDate) {
+			const endDate = new Date(collection.ends_at);
+
+			if (!isMinting && now >= startDate && now < endDate && mintedTokens < data.supply) {
 				window.location.reload();
 			}
 		};
 
 		const interval = setInterval(checkTime, 1000);
-		
+
 		return () => clearInterval(interval);
-	}, [isMinting, collection.starts_at]);
+	}, [isMinting, collection.starts_at, collection.ends_at, mintedTokens, data.supply]);
 
 	return (
-<>
+		<>
 			{justMinted && (
 				<div className="fixed inset-0 pointer-events-none z-50">
-					<Confetti
-						width={windowSize.width}
-						height={windowSize.height}
-						recycle={false}
-						numberOfPieces={200}
-					/>
+					<Confetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={200} />
 				</div>
 			)}
 			<div className="flex flex-col justify-center gap-1">
@@ -111,15 +107,10 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 				<div>
 					<p className="text-sm text-muted-foreground font-medium">
 						Created by{" "}
-						<Link
-							href={`${EXPLORER_URL}/address/${collection.creator_address}`}
-							target="_blank"
-							className="text-primary underline"
-						>
+						<Link href={`${EXPLORER_URL}/address/${collection.creator_address}`} target="_blank" className="text-primary underline">
 							{formatAddress(collection.creator_address)}
 						</Link>
-						.{" "}
-						<span className="text-muted-foreground font-medium">Address:</span>{" "}
+						. <span className="text-muted-foreground font-medium">Address:</span>{" "}
 						<Link href={`${EXPLORER_URL}/address/${collection.contract_address}`} target="_blank" className="text-primary underline">
 							{formatAddress(collection.contract_address)}
 						</Link>
@@ -127,10 +118,20 @@ export function MintUI({ collectionAddress, data, collection }: { collectionAddr
 				</div>
 				<div className="flex flex-col gap-2 mt-6">
 					<div className="text-sm text-muted-foreground font-medium flex justify-between gap-2 flex-wrap items-center">
-						<p>Max per wallet: <span className="text-primary font-semibold">{data.maxPerWallet}</span></p>
-						<p>Max per transaction: <span className="text-primary font-semibold">{data.maxPerTx}</span></p>
+						<p>
+							Max per wallet: <span className="text-primary font-semibold">{data.maxPerWallet}</span>
+						</p>
+						<p>
+							Max per transaction: <span className="text-primary font-semibold">{data.maxPerTx}</span>
+						</p>
 					</div>
-					<MintButton setJustMinted={setJustMinted} collectionAddress={collectionAddress} mintedTokens={mintedTokens} data={data} isMinting={isMinting} />
+					<MintButton
+						setJustMinted={setJustMinted}
+						collectionAddress={collectionAddress}
+						mintedTokens={mintedTokens}
+						data={data}
+						isMinting={isMinting}
+					/>
 					<div className="w-full">
 						<Progress value={(mintedTokens / data.supply) * 100} max={100} />
 						<div className="flex justify-between">
