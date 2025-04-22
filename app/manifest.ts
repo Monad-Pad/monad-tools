@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
 	return {
 		name: "Monad Tools",
 		short_name: "Monad Tools",
-		description: "Monad Tools is a community project made by Monad Pad. We are not affiliated with Monad.",
+		description: "Monad Tools is a community project made by Alloca. We are not affiliated with Monad.",
 		start_url: "/",
 		display: "standalone",
 		background_color: "#02040A",

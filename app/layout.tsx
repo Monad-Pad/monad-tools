@@ -41,7 +41,7 @@ export default function RootLayout({
 						<div className="flex flex-wrap gap-6 md:gap-2 mx-auto justify-between items-center">
 							<div className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground font-medium">
 								<p className="">Monad Tools is a community project made by</p>
-								<Link href="https://monadpad.xyz" target="_blank" className="text-primary underline flex items-center gap-1"><MonadPadIcon className="size-4" />Monad Pad</Link>
+								<Link href="https://alloca.xyz" target="_blank" className="text-primary underline flex items-center gap-1"><MonadPadIcon className="size-4" />Alloca</Link>
 							</div>
 							<p className="text-sm text-muted-foreground font-medium">We are not affiliated with Monad</p>
 						</div>

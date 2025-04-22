@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
 	title: "Monad Tools | Tools to explore & engage with Monad Testnet",
-	description: "Tools to explore & engage with Monad Testnet made by Monad Pad",
+	description: "Tools to explore & engage with Monad Testnet made by Alloca",
 }
 
 export default function Home() {
