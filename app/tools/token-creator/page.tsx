@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 
 export const metadata = {
 	title: "Create a token | Monad Tools",
-	description: "Create a token to be used on the Monad Pad platform.",
+	description: "Create a token to be used on the Alloca platform.",
 };
 
 export default function CreateTokenPage() {
